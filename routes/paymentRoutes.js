@@ -11,7 +11,6 @@ router.get("/", function (req, res) {
     const phone_number = req.query.phone_number;
     const amount = req.query.amount;
     const merchant_id = req.query.merchant_id;
-    console.log(order_id, customer_id, customer_name, email_id, phone_number, amount, merchant_id);
     if (
         order_id === undefined ||
         customer_id === undefined ||
