@@ -7,13 +7,13 @@ const _ = require("lodash");
 // Payment Success
 router.post("/success", function (req, res) {
     let data = `customer_id=${req.query.customer_id}&customer_name=${req.body.firstname}&amount=${req.body.amount}&transaction_id=${req.body.txnid}&payment_id=${req.body.mihpayid}&date_time=${req.body.addedon}&status=${req.body.status}`;
-    return res.redirect(`http://localhost:3000/paymentreceipt?${data}`);
+    return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
 });
 
 // Payment Success
 router.post("/failure", function (req, res) {
     let data = `customer_id=${req.query.customer_id}&customer_name=${req.body.firstname}&amount=${req.body.amount}&transaction_id=${req.body.txnid}&payment_id=${req.body.mihpayid}&date_time=${req.body.addedon}&status=${req.body.status}`;
-    return res.redirect(`http://localhost:3000/paymentreceipt?${data}`);
+    return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
 });
 
 module.exports = router;
