@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "nodemon index.js",
+    "server": "nodemon functions/api.js",
     "build": "netlify deploy --prod"
   },
   "keywords": [],
@@ -16,6 +15,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
     "nodemon": "^3.1.0",
     "serverless-http": "^3.2.0",
     "uuid": "^9.0.1"
