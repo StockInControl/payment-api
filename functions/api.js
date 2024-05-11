@@ -16,6 +16,9 @@ router.get("/", function (req, res) {
 const paymentRoutes = require("../routes/paymentRoutes");
 app.use("/.netlify/functions/api/payment", paymentRoutes);
 
+const paymentReceiptRoutes = require("../routes/paymentReceiptRoutes");
+app.use("/.netlify/functions/api/paymentreceipt", paymentReceiptRoutes);
+
 app.use("/.netlify/functions/api", router);
 module.exports.handler = serverless(app);
 
