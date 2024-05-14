@@ -3,6 +3,7 @@ const serverless = require("serverless-http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const { sequelize } = require("../models");
 const app = express();
 const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,6 +13,9 @@ app.use(cors());
 router.get("/", function (req, res) {
     res.json("Welcome to Payment API");
 });
+
+const ngeniusRoutes = require("../routes/ngeniusRoutes");
+app.use("/.netlify/functions/api/ngenius", ngeniusRoutes);
 
 const paymentRoutes = require("../routes/paymentRoutes");
 app.use("/.netlify/functions/api/payment", paymentRoutes);
@@ -26,4 +30,7 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, async () => {
     console.log("Server is up on http://localhost:" + PORT);
+    await sequelize.sync();
+    await sequelize.authenticate();
+    console.log("Database Connected");
 });
