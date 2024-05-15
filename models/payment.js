@@ -4,11 +4,10 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
     class Payment extends Model {
         static associate({ Customer }) {
-            // this.hasMany(Customer, {
-            //     foreignKey: "Customer_id",
-            //     onDelete: "CASCADE",
-            //     as: "customer",
-            // });
+            this.belongsTo(Customer, {
+                foreignKey: "Customer_id",
+                as: "customer",
+            });
         }
     }
     Payment.init(

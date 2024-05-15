@@ -77,7 +77,6 @@ router.get("/orderdata", async function (req, res) {
                         // Customer_id: req.query.customer_id,
                         Name: req.query.customer_name,
                     }).then(async (new_customer) => {
-                        console.log(new_customer.dataValues);
                         await db.Payment.create({ Customer_id: new_customer.dataValues.Customer_id, ...all_data }).then((new_payment) =>
                             console.log("New Payment Inserted with New Customer")
                         );
