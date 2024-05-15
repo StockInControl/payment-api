@@ -35,8 +35,8 @@ router.post("/order", async function (req, res) {
                 action: "AUTH",
                 amount: { currencyCode: "USD", value: req.body.amount },
                 merchantAttributes: {
-                    redirectUrl: "https://payment-api252.netlify.app/.netlify/functions/api/ngenius/orderdata?" + data,
-                    // redirectUrl: "http://localhost:5000/.netlify/functions/api/ngenius/orderdata" + data,
+                    redirectUrl: "https://payment-api-production.up.railway.app/api/ngenius/orderdata?" + data,
+                    // redirectUrl: "http://localhost:5000/api/ngenius/orderdata" + data,
                 },
             },
             {
