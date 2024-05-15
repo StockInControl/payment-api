@@ -63,7 +63,7 @@ router.post("/failure", function (req, res) {
             await db.Customer.create({
                 Customer_id: uuid,
                 Name: req.body.firstname,
-            }).then((new_customer) => console.log("New Customer Inserted"));
+            }).then((new_customer) => console.log(new_customer.dataValues));
             await db.Payment.create({
                 Payment_id: req.body.mihpayid,
                 Transaction_id: req.body.txnid,
