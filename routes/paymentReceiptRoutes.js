@@ -8,7 +8,7 @@ const _ = require("lodash");
 // Get All Payments Data
 router.get("/", function (req, res) {
     db.Payment.findAll({
-        includes: [{ model: db.Customer, as: "customer" }],
+        include: [{ model: db.Customer, as: "customer" }],
         order: [["createdAt", "DESC"]],
     }).then((allpayment) => res.send(allpayment));
 });
