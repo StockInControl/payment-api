@@ -27,7 +27,7 @@ router.get("/", async function (req, res) {
 // Make Order
 // Send the Request properly
 router.post("/order", async function (req, res) {
-    let data = `customer_id=${uuidv4()}&customer_name=${req.body.customer_name}&amount=${req.body.amount}&token=${req.body.token}`;
+    let data = `customer_name=${req.body.customer_name}&amount=${req.body.amount}&token=${req.body.token}`;
     await axios
         .post(
             "https://api-gateway.sandbox.ngenius-payments.com/transactions/outlets/1e4fbfb6-bfe9-4f21-ac02-8623ecf0ffdd/orders",
@@ -74,14 +74,16 @@ router.get("/orderdata", async function (req, res) {
             }).then(async (customer_record) => {
                 if (!customer_record) {
                     await db.Customer.create({
-                        Customer_id: req.query.customer_id,
+                        // Customer_id: req.query.customer_id,
                         Name: req.query.customer_name,
-                    }).then((new_customer) => console.log(new_customer.dataValues));
-                    await db.Payment.create({ Customer_id: req.query.customer_id, ...all_data }).then((new_payment) =>
-                        console.log("New Payment Inserted with New Customer")
-                    );
-                    let data = `customer_id=${req.query.customer_id}&customer_name=${req.query.customer_name}&amount=${all_data.Amount}&transaction_id=${all_data.Transaction_id}&payment_id=${all_data.Payment_id}&date_time=${response.data.createDateTime}&status=${all_data.Status}`;
-                    return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
+                    }).then(async (new_customer) => {
+                        console.log(new_customer.dataValues);
+                        await db.Payment.create({ Customer_id: new_customer.dataValues.Customer_id, ...all_data }).then((new_payment) =>
+                            console.log("New Payment Inserted with New Customer")
+                        );
+                        let data = `customer_id=${new_customer.dataValues.Customer_id}&customer_name=${req.query.customer_name}&amount=${all_data.Amount}&transaction_id=${all_data.Transaction_id}&payment_id=${all_data.Payment_id}&date_time=${response.data.createDateTime}&status=${all_data.Status}`;
+                        return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
+                    });
                     // return res.redirect(`https://localhost:3000/paymentreceipt?${data}`);
                 } else {
                     db.Payment.create({ Customer_id: customer_record.dataValues.Customer_id, ...all_data }).then((new_payment) =>
