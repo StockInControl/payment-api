@@ -6,6 +6,8 @@ const axios = require("axios");
 const db = require("../models");
 const _ = require("lodash");
 
+const op = require("sequelize").Op;
+
 // Get Access Token
 router.get("/", async function (req, res) {
     await axios
@@ -78,16 +80,15 @@ router.get("/orderdata", async function (req, res) {
                     }).then((new_customer) => console.log("New Customer Inserted"));
                     await db.Payment.create(all_data).then((new_payment) => console.log("New Payment Inserted with New Customer"));
                     let data = `customer_id=${req.query.customer_id}&customer_name=${req.query.customer_name}&amount=${all_data.Amount}&transaction_id=${all_data.Transaction_id}&payment_id=${all_data.Payment_id}&date_time=${response.data.createDateTime}&status=${all_data.Status}`;
-                    // return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
-                    return res.redirect(`https://localhost:3000/paymentreceipt?${data}`);
+                    return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
+                    // return res.redirect(`https://localhost:3000/paymentreceipt?${data}`);
                 } else {
                     db.Payment.create(all_data).then((new_payment) => console.log("New Payment Inserted with Old Customer"));
                     let data = `customer_id=${customer_record.dataValues.Customer_id}&customer_name=${req.query.customer_name}&amount=${all_data.Amount}&transaction_id=${all_data.Transaction_id}&payment_id=${all_data.Payment_id}&date_time=${response.data.createDateTime}&status=${all_data.Status}`;
-                    // return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
-                    return res.redirect(`https://localhost:3000/paymentreceipt?${data}`);
+                    return res.redirect(`https://payment-integration252.netlify.app/paymentreceipt?${data}`);
+                    // return res.redirect(`https://localhost:3000/paymentreceipt?${data}`);
                 }
             });
-            console.log(all_data);
             // res.send(response.data);
         });
 });
